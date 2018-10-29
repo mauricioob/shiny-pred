@@ -1,0 +1,8 @@
+packrat/lib*/
+packrat/*
+packrat/
+*.zip
+rsconnect/*
+rsconnect
+.Rprofile
+.Rhistory
