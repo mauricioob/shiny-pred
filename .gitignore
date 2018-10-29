@@ -6,3 +6,5 @@ rsconnect/*
 rsconnect
 .Rprofile
 .Rhistory
+.Rproj.user/
+*.RProj
