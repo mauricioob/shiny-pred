@@ -26,7 +26,7 @@ server <- function(input, output, session) {
                 hasDisorderInfo <- hasDisorderInfo(sequencesData)
                 
                 #make predictions
-                predictionResults <- predict(sequencesData, hasDisorderInfo, inputData$cnnModel())
+                predictionResults <- predict(sequencesData, hasDisorderInfo, inputData$cnnModel(), inputData$edgeCorrection())
                 
                 #render plots
                 sequencePlot <- callModule(sequencePlot, 'alpha', predictionResults)

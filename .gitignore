@@ -8,3 +8,4 @@ rsconnect
 .Rhistory
 .Rproj.user/
 *.RProj
+.Rproj.user

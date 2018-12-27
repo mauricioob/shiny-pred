@@ -1,4 +1,4 @@
-predict <- function(sequencesRaw, disorderInfo = FALSE, cnnModel = 'models/cnn_model2_pbd70_test.h5') {
+predict <- function(sequencesRaw, disorderInfo = FALSE, cnnModel = 'models/cnn-128-ker-local.h5', edgeCorrection = FALSE) {
     tryCatch(
         {
             withProgress(message = '>_', value = 0, {
@@ -17,6 +17,7 @@ predict <- function(sequencesRaw, disorderInfo = FALSE, cnnModel = 'models/cnn_m
                 windowsSequenceNames <- unlist(lapply(windows, function(x) { return(lapply(x, `[[`, 1))}))
                 residuePosition <- unlist(lapply(windows, function(x) { return(lapply(x, `[[`, 2))}))
                 residues <- unlist(lapply(windows, function(x) { return(lapply(x, `[[`, 3))})) 
+                relativePosition <- unlist(lapply(windows, function(x) { return(lapply(x, `[[`, 5))})) 
                 windows <- unlist(lapply(windows, function(x) { return(lapply(x, `[[`, 4))})) 
                 
                 incProgress(3/10, detail = "Encoding and translating windows")
@@ -33,6 +34,14 @@ predict <- function(sequencesRaw, disorderInfo = FALSE, cnnModel = 'models/cnn_m
                     actualValues <- unlist(disorderData)
                 } else {
                     actualValues <- rep(NA, length(predictions))
+                }
+                
+                residuePosition <- as.numeric(residuePosition)
+                startPositions <- which(residuePosition %in% c(1:20))
+
+                if (edgeCorrection) {
+                    edges <-  which(relativePosition %in% c('S','E'))
+                    predictions[edges] <-  (predictions[edges] / 2) + 0.1                    
                 }
             })
             

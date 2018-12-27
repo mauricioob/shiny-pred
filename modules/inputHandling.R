@@ -52,11 +52,12 @@ inputHandlingUI <- function(id) {
             collapsed = TRUE,
             column(width = 4,
                    selectizeInput(ns("cnnModel"), "CNN model", width = NULL, selected = NULL, multiple = FALSE,
-                                  choices = c('cnn_model2_pbd70_test', 'cnn_model2_pbd70', 'model5_30_epochs'))    
+                                  choices = c('cnn-128-ker-local','cnn-2-conv-local', 'cnn-64-ker-local')),
+                   textOutput(ns("selectedModelDescription"))
             ),
             column(width = 1),
             column(width = 4,
-                   materialSwitch(inputId = ns("secondLayerCorrection"), label = "Apply 2 layer correction?", value = FALSE, status = "success")
+                   materialSwitch(inputId = ns("edgeCorrection"), label = "Apply 2 layer correction?", value = FALSE, status = "success")
             )
         ),
         box(
@@ -70,7 +71,7 @@ inputHandlingUI <- function(id) {
             ),
             br(),
             div(style="display:inline-block", style="float:right",
-                actionBttn(inputId = ns('predict'), label = "run cnnAlpha",  style = "material-flat", color = "success", icon = icon("sliders"))
+                actionBttn(inputId = ns('predict'), label = "run shiny-pred",  style = "material-flat", color = "success", icon = icon("sliders"))
             ),
             
             width = NULL,
@@ -82,6 +83,13 @@ inputHandlingUI <- function(id) {
 # Module server function
 inputHandling <- function(input, output, session) {
     ns <- session$ns
+    
+    output$selectedModelDescription <- renderText({ 
+        req(input$cnnModel)
+        
+       if (input$cnnModel == 'cnn_128-ker-local.h5')
+         paste("One layer convolutional network with 128 kernels", input$cnnModel)
+    })
     
     observe({
         req(input$sequenceFile)
@@ -107,12 +115,16 @@ inputHandling <- function(input, output, session) {
         return (paste0('models/', input$cnnModel, '.h5'))
     })
     
+    edgeCorrection <- reactive({
+        return (input$edgeCorrection)
+    })
+    
     predictButton <- reactive({
         return(input$predict)
     })
     
     return (
-        list("sequenceData" = sequenceData, "predictButton" = predictButton , "cnnModel" = cnnModel)
+        list("sequenceData" = sequenceData, "predictButton" = predictButton , "cnnModel" = cnnModel, "edgeCorrection" = edgeCorrection )
     )
     
 }

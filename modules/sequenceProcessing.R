@@ -135,11 +135,12 @@ extractWindow <- function(sequenceIdx, seqData, seqNames) {
     while (idx < sequenceLength) {
         position = 'MIDDLE'
         
-        if (idx < 9)
-            position = 'START'
+        relativePosition = 'M'
+        if (idx < 51 & idx > 10)
+            relativePosition = 'S'
         
-        if ((sequenceLength-idx) < 5)
-            position = 'END'
+        if ((sequenceLength-idx) < 51 & (sequenceLength-idx) > 9)
+            relativePosition = 'E'
         
         
         #beginning of the window
@@ -177,7 +178,8 @@ extractWindow <- function(sequenceIdx, seqData, seqNames) {
             }
         }
         #adds window to the list
-        windows[[length(windows) + 1]] <- c(sequenceName, idx+1, substring(sequenceAA, idx+1, idx+1), sliderAA)
+        windows[[length(windows) + 1]] <- c(sequenceName, idx+1, substring(sequenceAA, idx+1, idx+1), sliderAA, relativePosition)
+
         idx <- idx + 1
     }
     return(windows)
