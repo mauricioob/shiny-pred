@@ -74,12 +74,26 @@ sequencePlot <- function(input, output, session, disorderPredictions, hasDisorde
             data$disorder <- ifelse(data$prediction >= 0.5, data$prediction, NA)
             
             sequenceList <- unique(data[,3])
-            
+
             plot_output_list <- lapply(1:length(sequenceList), function(i) {
                 sequence <- toString(sequenceList[i])
                 plotData <- data %>% filter(sequenceName == sequence)
-                tableData <- data %>% filter(sequenceName == sequence) %>% filter(!(order == 0.5 & disorder == 0.5)) %>% mutate(predictedClass = ifelse(prediction >=0.5, 'disorder', 'order'), actualClass = ifelse(actualDisorder == 'O', 'order', 'disorder'), match = ifelse(predictedClass == actualClass, 'hit', 'miss')) %>% 
-                    select(position, residue, "actual class" = actualClass, predictedClass, "disorder probability" = prediction, match)
+                tableData <- data %>% filter(sequenceName == sequence) %>% filter(!(order == 0.5 & disorder == 0.5)) %>% mutate(predictedClass = ifelse(prediction >=0.5, 'disorder', 'order'), actualClass = ifelse(actualDisorder == 'O', 'order', 'disorder'), match = ifelse(predictedClass == actualClass, 'hit', 'miss'))
+                
+                if (hasDisorderInfo)
+                    tableData <-  tableData %>% select(position, residue, "actual class" = actualClass, predictedClass, "disorder probability" = prediction, match)
+                else
+                    tableData <-  tableData %>% select(position, residue, predictedClass, "disorder probability" = prediction)
+                
+                
+                createSequenceTags <- lapply(1:nrow(tableData), function(i) {
+                    residue <-  tableData$residue[i]
+                    residueStyle <- ""
+                    if (plotData$prediction[i] >= 0.5)
+                        residueStyle = "color: red;"
+                    
+                    tags$span(style = residueStyle, residue)
+                })
                 
                 tagList(
                     box(
@@ -113,6 +127,20 @@ sequencePlot <- function(input, output, session, disorderPredictions, hasDisorde
                                        ))
                             p
                         }),
+                        box(
+                            width = NULL,
+                            collapsible = TRUE,
+                            collapsed = FALSE,
+                            solidHeader = TRUE,
+                            title = tagList(icon('receipt'), ""),
+                            tagList(
+                                tags$div(style = "background-color: #eff0f1; font-family: 'monospace'; font-size: 10px; color:#b3acac; overflow: auto; width: 100%; word-wrap: break-word",
+                                    tags$span(paste0(">", sequence)),
+                                    tags$br(),
+                                    do.call(tagList, createSequenceTags)
+                                )
+                            )
+                        ),
                         box(
                             width = NULL,
                             collapsible = TRUE,

@@ -29,7 +29,7 @@ server <- function(input, output, session) {
                 predictionResults <- predict(sequencesData, hasDisorderInfo, inputData$cnnModel(), inputData$edgeCorrection())
                 
                 #render plots
-                sequencePlot <- callModule(sequencePlot, 'alpha', predictionResults)
+                sequencePlot <- callModule(sequencePlot, 'alpha', predictionResults, hasDisorderInfo)
                 shinyjs::show(selector = "a[data-value=results]")
                 
                 #render benchmark
