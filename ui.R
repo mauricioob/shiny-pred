@@ -1,7 +1,16 @@
 library(shinydashboard)
 
-header <- dashboardHeader(title = tagList("shiny-pred"),
-                          titleWidth = 175)
+appTitle <- "shiny-pred"
+
+
+header <- dashboardHeader(titleWidth = 175,
+    title = div(style = "display:flex;", div(class = 'deploy-state', 'alpha'), appTitle),
+    tags$li(class = "dropdown",
+            tags$li(class = "dropdown", textOutput("logged_user"), style = "padding-top: 15px; padding-bottom: 15px; padding-right:15px; color: #fff;"),
+            tags$li(class = "dropdown", actionLink("info_btn", '', icon=icon('question', 'fa-lg')))
+            #tags$li(class = "dropdown", actionLink("login_btn", 'Log in', icon=icon('user'), style = "padding-top: 15px; color: #fff;" ))
+            )
+)
 
 body <- dashboardBody(
     useShinyjs(),
@@ -34,7 +43,7 @@ body <- dashboardBody(
                               current state of the art sequence only ab-initio methods at faster speeds, achieving balanced accuracy levels of 0.76 and AUC of 0.85 on the publicly available Critical Assessment of protein Structure Prediction dataset (CASP10).")
                     )
             ),
-            actionBttn(inputId= 'startHere', label = 'Start here', style = "pill", color = "success")
+            actionBttn(inputId= 'startHere', label = 'Start here', style = "material-flat", color = "success")
         ),
     tabItem(tabName = "results",
                 fluidPage(sequencePlotUI('alpha'))
@@ -55,5 +64,6 @@ sidebar <- dashboardSidebar(width = 175,
                         )
 
 dashboardPage(header,
+              title = appTitle,
               sidebar,
               body)

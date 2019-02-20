@@ -1,1 +1,387 @@
-    body {zoom: 80%;}
+    #body {zoom: 80%;}
+    
+    body,.h1,.h2,.h3,.h4,.h5,.h6,h1,h2,h3,h4,h5,h6, .main-header .logo {
+        font-family: Arial;
+    }
+    
+    #loading-content {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: #999;
+        opacity: 0.5;
+        overflow: hidden;
+        z-index: 99998;
+    }
+    
+
+    .notification-text {
+        color: #5291DD;
+        line-height: 2;
+        font-size: 14px;
+    }
+
+    .plot-filter-box .box-body {
+        padding: 10px 5px 10px 5px;
+    }
+    
+    
+    /* TEXT AREA FOR LOGS -------------------*/
+    
+    .logContainer .shiny-input-container:not(.shiny-input-container-inline) {
+        width:100%;
+    }
+
+    
+    /* INFO SIDEBAR -------------------*/
+    
+    /* button for show/hide info sidebar */
+    #info_btn:hover,
+    #info_btn.selected_on_header {
+        background: #fff;
+        color: #0460A9; 
+    }
+
+    #info_btn {
+        background: #0460A9;
+        color: #fff;
+        padding-top: 15px; 
+    }
+    
+    /* hidden info sidebar  */
+    #info_block {
+        -webkit-transition: width 0.3s ease,border-width 0.3s linear;
+        transition: width 0.3s ease,border-width 0.3s linear;
+        width: 0px;
+        height: calc(100% - 50px);
+        background-color: #FFFFFF;
+        font-family: Arial;
+        border-left: 1px solid #9D9D9D;
+        border-width: 0px;
+        position: absolute;
+        right: 0px;
+        top: 50px;
+        padding: 0px;
+        z-index: 1000;
+    }
+    
+    /* opened info sidebar */
+    #info_block.opened-info-sidebar {
+        width: 280px;
+        border-width: 1px;
+        right: 0px;
+        padding: 20px;
+        z-index: 1000;
+    }
+
+    /* LOADING APP -------------------*/
+
+    #initial-loader-content {
+        position: absolute; 
+        opacity:1;
+        text-align:center; 
+        z-index: 99999; 
+        top: 50%; 
+        height: 150px; 
+        width: 100%; 
+        margin-top: -200px; 
+        background-color: #ffffff;
+    }
+    
+    #initial-progress-bar {
+        width: 550px; 
+        position: relative; 
+        left:50%; 
+        margin-left:-275px
+    }
+    
+    
+    /* TOOLTIP -------------------*/
+    
+    .tooltip-inner {
+        min-width: 100px;
+        max-width: 100%;
+        text-align: left;
+        color: #000;
+        font: Arial;
+        font-size: 12px;
+        border: solid 1px #9D9D9D;
+        padding: 6px 10px;
+        background-color: white;
+        opacity: 1!important;
+    }
+    
+    /* BADGE -------------------*/
+    .bg-blue {
+        background: #0460A9!important;
+    }
+    
+    
+    /* DEPLOY STATE -------------------*/
+    .deploy-state {
+        height: 50px;
+        background-color: #5291DD;
+        font-family: Arial;
+        font-size: 14px;
+        color: #FFFFFF;
+        padding: 0px 10px;
+        margin-right: 10px;
+        line-height: 50px;
+        text-decoration: none;
+    }
+
+    .main-header .logo {
+        padding: 0px; 
+    }
+    
+    /* DASHBOARD -------------------*/
+    .content-wrapper, .right-side {
+           background-color: #fff; 
+    }
+    
+    /* logo */
+    .skin-blue .main-header .logo {
+        background-color: #0460A9;
+    }
+
+    /* logo when hovered */
+    .skin-blue .main-header .logo:hover {
+        background-color: #0460A9;
+    }
+
+    /* navbar (rest of the header) */
+    .skin-blue .main-header .navbar {
+        background-color: #0460A9;
+    }        
+    /* toggle button when hovered  */                    
+    .skin-blue .main-header .navbar .sidebar-toggle:hover{
+        background-color: #0A4F8F;
+    }
+    
+    /* left border of the selected link on sidebar */
+    .skin-blue .sidebar-menu>li.active>a, .skin-blue .sidebar-menu>li:hover>a {
+        border-left-color: #0460A9;
+    }
+    
+    
+     /* SIDEBAR -------------------*/
+     /* right border */
+    .skin-blue .left-side, 
+    .skin-blue .main-sidebar, 
+    .skin-blue .wrapper {
+        border-right: 1px solid #9D9D9D;
+    }
+
+    /* main background color */
+    .skin-blue .left-side, 
+    .skin-blue .main-sidebar, 
+    .skin-blue .wrapper,
+    .skin-blue .sidebar-menu>li>.treeview-menu  {
+        background-color: #EDEDED;
+    }
+
+    /* tab background on active or hover */
+    .skin-blue .sidebar-menu>li.active>a, 
+    .skin-blue .sidebar-menu>li:hover>a {
+        background: #E3E3E3;
+    }
+
+    /* font for tab names */
+    .skin-blue .sidebar a,
+    .skin-blue .treeview-menu>li>a  {
+        color: black;
+        font-weight: bold;
+    }
+    
+     /* font on active or hover */
+    .skin-blue .treeview-menu>li.active>a, 
+    .skin-blue .treeview-menu>li>a:hover,
+    .skin-blue .sidebar-menu>li.active>a, 
+    .skin-blue .sidebar-menu>li:hover>a  {
+        color: #0460A9;
+    }
+    
+    /* TABS -------------------*/
+    
+    .nav-tabs-custom>.nav-tabs>li.active {
+        border-top-color: #5291DD;
+    }
+    
+    
+     /* VALUE BOX -------------------*/
+     
+     /* color of the backcground in value box */
+    .bg-light-blue {
+        background-color: #0460A9!important;
+    }
+    
+    /* color of icon in value box */
+    .small-box .icon-large {
+        color: #023761;
+    }
+    
+    
+    /* BUTTONS -------------------*/
+    
+    /* style for primary nibr button */
+    .btn-default.primary-nibr-btn {
+        font: Arial;
+        color: #FFF;
+        font-size: 14px;
+        background-color: #0460A9;
+        border: solid 1px #0460A9;
+        border-radius: 2px;
+       /* padding: 7px 12px;
+        height: 31px;*/
+    }
+    
+    .btn-default.primary-nibr-btn:hover,
+    .btn-default.primary-nibr-btn:disabled{
+        border-color: #0A4F8F;
+        background-color: #0A4F8F;
+        color: #FFF;
+    }
+    
+    /* style for default nibr button */
+    .btn-default {
+        font: Arial;
+        color: #000;
+        font-size: 14px;
+        background-color: #EDEDED;
+        border: solid 1px #9D9D9D;
+        border-radius: 2px;
+       /* padding: 7px 12px;
+        height: 31px;*/
+    }
+    
+    .btn-default:hover {
+        background-color: #C6C6C6;
+    }
+    
+    .btn-default:disabled {
+        background-color: #EDEDED;
+        color: #888;
+    }
+    
+    /* circle button */
+    .bttn-material-circle.bttn-primary {
+        background: #0460A9!important;
+    }
+    
+    
+    /* INTRO JS -------------------*/
+    
+    .introjs-helperNumberLayer {
+        background: #0460A9;
+    }
+    
+    
+    /* CHECKBOXES -------------------*/
+   /* 
+    tbody .checkbox input[type="checkbox"]:checked {
+        background-color: #0460A9!important;
+    }
+    
+    .checkbox-bs input[type="checkbox"]:checked {
+        background-color: #0460A9!important;
+    }
+    */
+    
+    /* OPTIONS BUTTON  -------------------*/
+    .btn-primary {
+        background-color: #0460A9;
+        border-color: #0460A9;
+    }
+    
+    .btn-primary:hover {
+        background-color: #0A4F8F;
+        border-color: #0A4F8F;
+    }
+    
+    .btn-primary.active, .btn-primary:active, .open>.dropdown-toggle.btn-primary,
+    .open>.dropdown-toggle.btn-primary:focus {
+        background-color: #0A4F8F;
+        border-color: #0A4F8F;
+    }
+    
+    /* TOGGLE BUTTON  -------------------*/
+    
+    .label-primary {
+        background-color: #0460A9!important;
+    }
+    
+    /* DATATABLES  -------------------*/
+    
+    /* hide disabled filters in datatable */
+    .dataTable thead input[type = 'search']:disabled {
+        display: none;
+    }
+    
+    /* header background */
+    .datatables thead {
+        background: #EDEDED;
+    }
+    
+    /* header border */
+    table.dataTable thead th, 
+    table.dataTable thead td {
+        border-bottom: none!important;
+        background: #fff;
+    }
+    
+    table.dataTable thead th {
+        border-bottom: none!important;
+        background: #EDEDED;
+    }
+    
+    
+    /* header border */
+    .dataTables_scrollHead {
+        border-bottom: solid 1px #D9D9D9!important; 
+    }
+
+    
+    /* table borders */
+    .dataTables_scroll {
+        border: solid 1px #D9D9D9!important; 
+    }
+
+    .dataTables_wrapper.no-footer .dataTables_scrollBody {
+        border: none!important;
+    }
+    
+    /* grouping rows */
+    table.dataTable.display tbody tr.group td {
+        background: #f4f5f7;
+    }
+    
+    /* odd rows */
+    table.dataTable.stripe tbody tr.odd, 
+    table.dataTable.display tbody tr.odd {
+        background-color: #FFF!important;
+    }
+    
+    /* even rows */
+    table.dataTable.stripe tbody tr.even, 
+    table.dataTable.display tbody tr.even {
+        background-color: #FFF!important;/*#E3E3E3;
+    }
+    
+    /* actions on table */
+    table.dataTable tbody tr.selected td, table.dataTable tbody td.selected,
+    table.dataTable tbody tr:hover td, table.dataTable tbody td:hover {
+        background-color: #BCDAF5!important;
+    }
+    
+    /* border between rows */
+    table.dataTable.display tbody tr td,
+    table.dataTable.row-border tbody th, 
+    table.dataTable.row-border tbody td, 
+    table.dataTable.display tbody th, 
+    table.dataTable.display tbody td {
+         border-bottom: 1px solid #C6C6C6; 
+         border-top: none!important;
+    }
+    

@@ -1,6 +1,7 @@
 library(keras)
 
 server <- function(input, output, session) {
+    
     inputData <- callModule(inputHandling, 'alpha')
     
     shinyjs::hide(selector = "a[data-value=benchmark]")
@@ -64,4 +65,27 @@ server <- function(input, output, session) {
     session$onSessionEnded(function() {
         print('session ends')
     })
+    
+    # info sidebar ----
+    # add info sidebar to ui
+    observeEvent(input$info_btn, {
+        insertUI(selector = '.main-header', ui = div(id = 'info_block', infoContent()), 
+                 where = 'afterEnd', immediate = TRUE)
+    }, once = TRUE)
+    
+    # content of the info sidebar
+    infoContent <- function() {
+        tagList(
+            h1('Help', style = 'font-weight: bold; font-size: 28px;'),
+            tags$p("If you have an issue, please report it here."),
+            actionButton('reportIssue', 'Report an issue', class = 'primary-nibr-btn', 
+                         onclick = "window.open('https://github.com/mauricioob/shiny-pred/issues')")
+        )
+    }
+    
+    # show/hide info sidebar
+    observeEvent(input$info_btn, {
+        toggleCssClass(id = 'info_btn', class = 'selected_on_header', condition = {input$info_btn %% 2 != 0})
+        toggleCssClass(id = 'info_block', class = 'opened-info-sidebar', condition = {input$info_btn %% 2 != 0})
+    }, ignoreInit = TRUE)
 }

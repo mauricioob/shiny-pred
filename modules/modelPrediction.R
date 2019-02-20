@@ -1,3 +1,27 @@
+encode <- function(sequencesRaw, disorderInfo = FALSE) {
+
+    if (disorderInfo) {
+        sequencesData <- parseDisorderInformation(sequencesRaw, disorderInfo)
+        sequencesAA <- sequencesData$sequencesAA
+        sequencesDisorder <- sequencesData$sequencesDisorder
+        disorderData <- sequencesData$disorderAA
+    } else {
+        sequencesAA <- sequencesRaw                   
+    } 
+    
+    windows <- extractWindows(sequencesAA)
+    windowsSequenceNames <- unlist(lapply(windows, function(x) { return(lapply(x, `[[`, 1))}))
+    residuePosition <- unlist(lapply(windows, function(x) { return(lapply(x, `[[`, 2))}))
+    residues <- unlist(lapply(windows, function(x) { return(lapply(x, `[[`, 3))})) 
+    relativePosition <- unlist(lapply(windows, function(x) { return(lapply(x, `[[`, 5))})) 
+    windows <- unlist(lapply(windows, function(x) { return(lapply(x, `[[`, 4))})) 
+    
+    x_encoded <- getData3LetterTranslated_flat(windows)
+
+    return(x_encoded)
+    
+}
+
 predict <- function(sequencesRaw, disorderInfo = FALSE, cnnModel = 'models/cnn-128-ker-local.h5', edgeCorrection = FALSE) {
     tryCatch(
         {
